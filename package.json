@@ -1,0 +1,79 @@
+{
+  "description": "pro-prints-enterprise-desktop-app",
+  "author": "Dondomie Dungca",
+  "build": {
+    "appId": "181409"
+  },
+  "main": "./main.js",
+  "homepage": "./",
+  "name": "ppe_desktop",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.12",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.51",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ckeditor4-react": "^1.1.0",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "electron": "^8.2.5",
+    "electron-builder": "^22.6.0",
+    "electron-is-dev": "^1.2.0",
+    "electron-reload": "^1.5.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.17.1",
+    "filepond": "^4.17.1",
+    "filepond-plugin-file-validate-type": "^1.2.5",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.11",
+    "passport": "^0.4.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-filepond": "^7.0.1",
+    "react-redux": "^7.2.0",
+    "react-scripts": "3.4.1",
+    "react-swipeable-views": "^0.13.9",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "wait-on": "^4.0.2",
+    "yarn": "^1.22.4"
+  },
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "electron-devtools-installer": "^3.0.0",
+    "electron-winstaller": "^4.0.0"
+  }
+}
