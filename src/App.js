@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Tooltip, Tab, Tabs, Paper, Typography, Box, IconButton } from "@material-ui/core";
-import GroupIcon from "@material-ui/icons/Group";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ShowChartIcon from "@material-ui/icons/ShowChart";
-import ViewListIcon from "@material-ui/icons/ViewList";
-import MenuIcon from "@material-ui/icons/Menu";
-import SwipeableViews from "react-swipeable-views";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Tooltip, Tab, Tabs, Paper, Typography, Box, IconButton } from '@material-ui/core';
+import GroupIcon from '@material-ui/icons/Group';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import MenuIcon from '@material-ui/icons/Menu';
+import SwipeableViews from 'react-swipeable-views';
 
-import Login from "./components/login";
-import { refresh_user_token } from "./actions/actions";
-import Account from "./components/account";
-import ItemsManagement from "./components/ItemsManagement";
+import Login from './components/login';
+import { refresh_user_token } from './actions/actions';
+import Account from './components/account';
+import ItemsManagement from './components/ItemsManagement';
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: "100%",
+    maxWidth: '100%',
     minHeight: 600,
   },
 });
@@ -48,16 +48,16 @@ const App = ({ user }) => {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([
-    "Users Management",
-    "Items Management",
-    "Charts View",
-    "General Settings",
+    'Users Management',
+    'Items Management',
+    'Charts View',
+    'General Settings',
   ]);
   const [components, setComponents] = useState([
+    'Users Management',
     <ItemsManagement />,
-    <ItemsManagement />,
-    <ItemsManagement />,
-    <ItemsManagement />,
+    'Charts View',
+    'General Settings',
   ]);
   const [icon, setIcons] = useState([
     <GroupIcon />,
@@ -107,7 +107,7 @@ const App = ({ user }) => {
         ))}
       </Tabs>
       <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
@@ -128,7 +128,7 @@ const Index = () => {
     dispatch(refresh_user_token());
   }, []);
 
-  let user_session = localStorage.getItem("ppe_user_credentials");
+  let user_session = localStorage.getItem('ppe_user_credentials');
   const { data } = useSelector((state) => state.main);
   const { user } = data;
 

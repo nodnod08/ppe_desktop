@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,9 +48,21 @@ const MyHead = ({ columns }) => {
   );
 };
 
+const Loading = ({ columns }) => {
+  return (
+    <TableRow hover tabIndex={-1}>
+      <TableCell align="center" colSpan={columns.length}>
+        <CircularProgress />
+      </TableCell>
+    </TableRow>
+  );
+};
+
 const MyCell = ({ column, data }) => {
-  return column.type == 'action' ? (
-    column.render(data)
+  return column.type != 'string' ? (
+    <TableCell key={data.id} align="center">
+      {column.render(data)}
+    </TableCell>
   ) : (
     <TableCell key={data.id} align="center">
       {data[column.id]}
@@ -75,6 +88,7 @@ const PPETable = ({
   data,
   page,
   columns,
+  loading,
 }) => {
   const classes = useStyles();
   return (
@@ -89,16 +103,20 @@ const PPETable = ({
           >
             <MyHead columns={columns} />
             <TableBody>
-              {data.length ? (
-                data.map((row, index) => (
-                  <TableRow hover tabIndex={-1} key={index}>
-                    {columns.map((col, ind) => (
-                      <MyCell key={ind} column={col} data={row} />
-                    ))}
-                  </TableRow>
-                ))
+              {!loading ? (
+                data.length ? (
+                  data.map((row, index) => (
+                    <TableRow hover tabIndex={-1} key={index}>
+                      {columns.map((col, ind) => (
+                        <MyCell key={ind} column={col} data={row} />
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <Empty columns={columns} />
+                )
               ) : (
-                <Empty columns={columns} />
+                <Loading columns={columns} />
               )}
             </TableBody>
           </Table>

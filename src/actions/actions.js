@@ -81,23 +81,33 @@ export const refresh_user_token = () => (dispatch) => {
 };
 
 export const fetchData = (url) => (dispatch) => {
-  axios.get(url).then((res) => {
-    dispatch(
-      setApi({
-        total: res.data.total,
-        data: res.data.data,
-      })
-    );
-  });
+  axios
+    .get(url)
+    .then((res) => {
+      dispatch(
+        setApi({
+          total: res.data.total,
+          data: res.data.data,
+        })
+      );
+    })
+    .then(() => {
+      dispatch(setLoading(false));
+    });
 };
 
 export const deleteItem = (url, id) => (dispatch) => {
-  axios.post(url, { id }).then((res) => {
-    dispatch(
-      setApi({
-        total: res.data.total,
-        data: res.data.data,
-      })
-    );
-  });
+  axios
+    .post(url, { id })
+    .then((res) => {
+      dispatch(
+        setApi({
+          total: res.data.total,
+          data: res.data.data,
+        })
+      );
+    })
+    .then(() => {
+      dispatch(setLoading(false));
+    });
 };

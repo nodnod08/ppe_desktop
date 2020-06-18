@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import Confirm from './../../reusable/Confirm';
@@ -34,21 +34,29 @@ const Delete = ({ value }) => {
 };
 
 const Brand = ({ data }) => {
-  return 'hello';
+  return (
+    <p style={{ fontSize: 15 }}>
+      {data.brand.brand_name} - {data.brand.is_colored ? 'COLORED' : 'MONOCHROME'}
+    </p>
+  );
 };
 
 const Category = ({ data }) => {
-  return 'hello';
+  return <p style={{ fontSize: 15 }}>{data.brand.category}</p>;
 };
 
 const Content = ({ data }) => {
-  return 'hello';
+  return (
+    <p style={{ fontSize: 15 }}>
+      {data.brand.brand_name} - {data.brand.is_colored ? 'COLORED' : 'MONOCHROME'}
+    </p>
+  );
 };
 
 const columns = [
   {
-    id: 'item_name',
-    label: 'Item Name',
+    id: 'action',
+    label: 'Action',
     type: 'action',
     render: (data) => <Delete data={data} />,
   },
