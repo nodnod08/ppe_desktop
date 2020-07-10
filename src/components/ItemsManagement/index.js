@@ -85,7 +85,7 @@ const ItemsManagement = () => {
           <Typography>Items List</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <ItemsList />
+          {expanded == 'panel2' ? <ItemsList /> : null}
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
