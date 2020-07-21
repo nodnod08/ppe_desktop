@@ -3,23 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 import Confirm from './../../reusable/Confirm';
 import useToggle from './../../reusable/useToggle';
 import { deleteItem } from './../../../actions/actions';
+import EditItem from './EditItem';
 
-const Delete = ({ value }) => {
+const Action = ({ value }) => {
 	const dispatch = useDispatch();
 	const { data } = useSelector((state) => state.main);
 	const { APP_URL, api } = data;
 	const [confirm, setConfirm] = useToggle(false);
+	const [edit, setEdit] = useToggle(false);
 	const delete_item = () => {
 		dispatch(
 			deleteItem(
 				`${APP_URL}/api-items/delete-item`,
-				`${APP_URL}/api-items/get-items/${api.total == 1 ? api.page - 1 : api.page}/${
-					api.rowsPerPage
-				}`,
+				`${APP_URL}/api-items/get-items/${
+					api.total % api.rowsPerPage == 1 ? (api.page > 1 ? api.page - 1 : api.page) : api.page
+				}/${api.rowsPerPage}`,
 				value,
 				api
 			)
@@ -33,8 +36,12 @@ const Delete = ({ value }) => {
 				onClose={setConfirm}
 				onSuccess={delete_item}
 			/>
+			{edit && <EditItem value={value} open={edit} setOpen={setEdit} />}
 			<IconButton onClick={setConfirm} aria-label="delete">
 				<DeleteIcon />
+			</IconButton>
+			<IconButton onClick={setEdit} aria-label="delete">
+				<EditIcon />
 			</IconButton>
 		</React.Fragment>
 	);
@@ -65,7 +72,7 @@ const columns = [
 		id: 'action',
 		label: 'Action',
 		type: 'action',
-		render: (data) => <Delete value={data} />,
+		render: (data) => <Action value={data} />,
 	},
 	{
 		id: 'item_name',

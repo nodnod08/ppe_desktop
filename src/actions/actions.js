@@ -103,6 +103,7 @@ export const deleteItem = (url, url2, data, api) => (dispatch) => {
 			onModel: data.onModel,
 			id: data.brand._id,
 			idToDelete: data._id,
+			photo: data.photo_name,
 		})
 		.then(() => {
 			axios
@@ -110,7 +111,12 @@ export const deleteItem = (url, url2, data, api) => (dispatch) => {
 				.then((res) => {
 					dispatch(
 						setApi({
-							page: (api.total == 1 ) ? (api.page > 1 ? api.page - 1 : api.page) : api.page,
+							page:
+								api.total % api.rowsPerPage == 1
+									? api.page > 1
+										? api.page - 1
+										: api.page
+									: api.page,
 							total: res.data.total,
 							data: res.data.data,
 						})
