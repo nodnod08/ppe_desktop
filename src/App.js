@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 	root: {
 		flexGrow: 1,
 		maxWidth: '100%',
-		minHeight: 600,
+		minHeight: 100,
 	},
 });
 

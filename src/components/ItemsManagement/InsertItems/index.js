@@ -23,7 +23,7 @@ import useToggle from './../../reusable/useToggle';
 import CustomAlert from './../../reusable/Alert';
 import { ProgressSending } from './../../reusable/Progress';
 import { useStyles } from './../styles';
-import { setLoading, setAlert, setApi } from './../../../actions/actions';
+import { setLoading, setAlert, setApi, fetchData } from './../../../actions/actions';
 
 const InsertItems = ({ type, value }) => {
 	const classes = useStyles();
@@ -85,10 +85,10 @@ const InsertItems = ({ type, value }) => {
 		if (sellable) {
 			formData.append('price', price);
 		}
-		formData.append('brand', JSON.stringify(brand));
+		formData.append('brand', brand);
 		formData.append('stocks', stocks);
 		formData.append('content', content);
-		formData.append('category', JSON.stringify(category));
+		formData.append('category', category);
 		formData.append('item_name', item_name);
 		if (type == 'update') {
 			formData.append('old_data', JSON.stringify(value));
@@ -103,13 +103,22 @@ const InsertItems = ({ type, value }) => {
 			},
 		};
 
-		axios.post(`${APP_URL}/api-items/update-create`, formData, config).then(async (res) => {
-			let new_data = [...api.data];
-			new_data.push(res.data.added);
-			dispatch(setApi({ data: new_data, total: api.total + 1 }));
-			dispatch(setLoading(false));
-			dispatch(setAlert({ isShow: true, type: res.data.result, message: res.data.message }));
-		});
+		axios
+			.post(`${APP_URL}/api-items/update-create`, formData, config)
+			.then(async (res) => {
+				if (type != 'update' && api.total % api.rowsPerPage != 0) {
+					let new_data = [...api.data];
+					new_data.push(res.data.added);
+					dispatch(setApi({ data: new_data, total: api.total + 1 }));
+				}
+				dispatch(fetchData(`${APP_URL}/api-items/get-items/${api.page}/${api.rowsPerPage}`));
+				if (type != 'update') {
+					dispatch(setAlert({ isShow: true, type: res.data.result, message: res.data.message }));
+				}
+			})
+			.then(() => {
+				dispatch(setLoading(false));
+			});
 	};
 
 	return (
@@ -298,8 +307,8 @@ const InsertItems = ({ type, value }) => {
 				)}
 			</Grid>
 			<Grid item xs={12}>
-				{loading && <ProgressSending />}
-				{alert.isShow && <CustomAlert type={alert.type} message={alert.message} />}
+				{(loading && type != 'update') ? <ProgressSending /> : null}
+				{(alert.isShow && type != 'update') ? <CustomAlert type={alert.type} message={alert.message} /> : null}
 			</Grid>
 		</Paper>
 	);

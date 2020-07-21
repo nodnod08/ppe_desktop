@@ -69,6 +69,11 @@ const Content = ({ data }) => {
 
 const columns = [
 	{
+		type: 'number',
+		id: 'number',
+		label: '#'
+	},
+	{
 		id: 'action',
 		label: 'Action',
 		type: 'action',
