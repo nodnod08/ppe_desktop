@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import clsx from 'clsx';
 
 import PPETable from './../reusable/PPETable';
@@ -13,14 +14,17 @@ import columns from './columns';
 import { useStyles, useToolbarStyles } from './styles';
 import useToggle from './../reusable/useToggle';
 import AddUser from './AddUser';
+import ChangePass from './ChangePass';
 
 const EnhancedTableToolbar = () => {
 	const classify = useToolbarStyles();
 	const [add, setAdd] = useToggle(false);
+	const [pass, setPass] = useToggle(false);
 
 	return (
 		<React.Fragment>
 			<AddUser type="create" open={add} setOpen={setAdd} />
+			<ChangePass open={pass} setOpen={setPass} />
 			<Toolbar
 				className={clsx(classify.root, {
 					[classify.highlight]: true,
@@ -29,6 +33,11 @@ const EnhancedTableToolbar = () => {
 				<Tooltip title="Add User">
 					<IconButton onClick={setAdd} aria-label="Add User">
 						<PersonAddIcon />
+					</IconButton>
+				</Tooltip>
+				<Tooltip title="Manage Your Password">
+					<IconButton onClick={setPass} aria-label="Manage Your Password">
+						<VpnKeyIcon />
 					</IconButton>
 				</Tooltip>
 			</Toolbar>
@@ -67,7 +76,8 @@ const UserPage = () => {
 
 	const handleChangeRowsPerPage = (event) => {
 		dispatch(setLoading(true));
-		const numRows = event.target.value;
+		let numRows = event.target.value;
+
 		let remain = users.total % numRows;
 		let pp = (users.total % numRows) + remain;
 
@@ -83,7 +93,7 @@ const UserPage = () => {
 
 		dispatch(
 			fetchData(
-				`${APP_URL}/api-users/get-users/${
+				`${APP_URL}/api-user/get-users/${
 					users.page != 1 ? (pp != users.page ? users.page - 1 : users.page) : users.page
 				}/${numRows}`,
 				'users'

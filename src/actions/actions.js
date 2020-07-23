@@ -134,3 +134,35 @@ export const deleteItem = (url, url2, data, api, location) => (dispatch) => {
 				});
 		});
 };
+
+export const deleteUser = (url, url2, data, api, location) => (dispatch) => {
+	dispatch(setLoading(true));
+	axios
+		.post(url, {
+			idToDelete: data._id,
+		})
+		.then(() => {
+			axios
+				.get(url2)
+				.then((res) => {
+					dispatch(
+						setApi(
+							{
+								page:
+									api.total % api.rowsPerPage == 1
+										? api.page > 1
+											? api.page - 1
+											: api.page
+										: api.page,
+								total: res.data.total,
+								data: res.data.data,
+							},
+							location
+						)
+					);
+				})
+				.then(() => {
+					dispatch(setLoading(false));
+				});
+		});
+};

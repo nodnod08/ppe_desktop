@@ -169,7 +169,7 @@ const InsertItems = ({ type, value }) => {
 						onChange={(event) => {
 							setName(event.target.value);
 						}}
-						helperText={errors.item_name ? 'This field is required' : 'Input Item Name please'}
+						helperText={errors.item_name ? 'This field is required' : 'Input Item Name'}
 						variant="outlined"
 					/>
 				</FormControl>
@@ -187,7 +187,7 @@ const InsertItems = ({ type, value }) => {
 						onChange={(event) => {
 							setStocks(event.target.value);
 						}}
-						helperText={errors.stocks ? 'This field is required' : 'Input Item Stocks please'}
+						helperText={errors.stocks ? 'This field is required' : 'Input Item Stocks'}
 						variant="outlined"
 					/>
 				</FormControl>
@@ -205,7 +205,7 @@ const InsertItems = ({ type, value }) => {
 							onChange={(event) => {
 								setPrice(event.target.value);
 							}}
-							helperText={errors.price ? 'This field is required' : 'Input Item Price please'}
+							helperText={errors.price ? 'This field is required' : 'Input Item Price'}
 							variant="outlined"
 						/>
 					</FormControl>

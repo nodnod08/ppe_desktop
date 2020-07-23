@@ -10,10 +10,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import CustomAlert from './../reusable/Alert';
 import { ProgressSending } from './../reusable/Progress';
-import { Slide, Grid, FormControl, TextField, OutlinedInput, InputLabel } from '@material-ui/core';
+import { Slide, Grid, FormControl, TextField } from '@material-ui/core';
 
 import { useStyles } from './styles';
 import useToggle from './../reusable/useToggle';
@@ -40,11 +40,11 @@ export default function AddUser({ open, setOpen, type, value }) {
 	const [email, setEmail] = useState(type == 'update' ? value.email : '');
 	const { register, handleSubmit, errors, control } = useForm({ mode: 'all' });
 
-	useEffect(() => {
-		return () => {
-			console.log('cleaned up');
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 		console.log('cleaned up');
+	// 	};
+	// }, []);
 
 	const onSubmit = () => {
 		if (!Object.keys(errors).length) {
@@ -136,7 +136,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 								onChange={(event) => {
 									setfirstName(event.target.value);
 								}}
-								helperText={errors.firstName ? errors.firstName.message : 'First Item Name please'}
+								helperText={errors.firstName ? errors.firstName.message : 'First Item Name'}
 								variant="outlined"
 							/>
 						</FormControl>
@@ -153,7 +153,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 								onChange={(event) => {
 									setlastName(event.target.value);
 								}}
-								helperText={errors.lastName ? errors.lastName.message : 'Input Last Name please'}
+								helperText={errors.lastName ? errors.lastName.message : 'Input Last Name'}
 								variant="outlined"
 							/>
 						</FormControl>
@@ -171,7 +171,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 								onChange={(event) => {
 									setEmail(event.target.value);
 								}}
-								helperText={errors.email ? errors.email.message : 'Input Email please'}
+								helperText={errors.email ? errors.email.message : 'Input Email'}
 								variant="outlined"
 							/>
 						</FormControl>
@@ -188,7 +188,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 								onChange={(event) => {
 									setUsername(event.target.value);
 								}}
-								helperText={errors.username ? errors.username.message : 'Input Username please'}
+								helperText={errors.username ? errors.username.message : 'Input Username'}
 								variant="outlined"
 							/>
 						</FormControl>
@@ -221,7 +221,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 										onChange={(event) => {
 											setPassword(event.target.value);
 										}}
-										helperText={errors.password ? errors.password.message : 'Input Password please'}
+										helperText={errors.password ? errors.password.message : 'Input Password'}
 										variant="outlined"
 									/>
 								</FormControl>
@@ -255,9 +255,7 @@ export default function AddUser({ open, setOpen, type, value }) {
 										onChange={(event) => {
 											setCPassword(event.target.value);
 										}}
-										helperText={
-											errors.cpassword ? errors.cpassword.message : 'Confirm Password please'
-										}
+										helperText={errors.cpassword ? errors.cpassword.message : 'Confirm Password'}
 										variant="outlined"
 									/>
 								</FormControl>

@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import Confirm from './../reusable/Confirm';
 import useToggle from './../reusable/useToggle';
-import { deleteItem } from './../../actions/actions';
+import { deleteUser } from './../../actions/actions';
 import AddUser from './AddUser';
 
 const Action = ({ value }) => {
@@ -18,8 +18,8 @@ const Action = ({ value }) => {
 	const [edit, setEdit] = useToggle(false);
 	const delete_user = () => {
 		dispatch(
-			deleteItem(
-				`${APP_URL}/api-user/delete-item`,
+			deleteUser(
+				`${APP_URL}/api-user/delete-user`,
 				`${APP_URL}/api-user/get-users/${
 					users.total % users.rowsPerPage == 1
 						? users.page > 1
