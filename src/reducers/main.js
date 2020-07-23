@@ -50,7 +50,7 @@ export default function (state = INIT_DATA, action) {
         ...state,
         data: {
           ...state.data,
-          api: {
+          [action.location]: {
             ...state.data.api,
             ...action.data,
           },

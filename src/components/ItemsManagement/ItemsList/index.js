@@ -13,18 +13,21 @@ const ItemsList = () => {
 
 	useEffect(() => {
 		dispatch(setLoading(true));
-		dispatch(fetchData(`${APP_URL}/api-items/get-items/${api.page}/${api.rowsPerPage}`));
+		dispatch(fetchData(`${APP_URL}/api-items/get-items/${api.page}/${api.rowsPerPage}`, 'api'));
 	}, []);
 
 	const handleChangePage = (event, newPage) => {
 		dispatch(setLoading(true));
 		dispatch(
-			setApi({
-				page: newPage + 1,
-				rowsPerPage: api.rowsPerPage,
-			})
+			setApi(
+				{
+					page: newPage + 1,
+					rowsPerPage: api.rowsPerPage,
+				},
+				'api'
+			)
 		);
-		dispatch(fetchData(`${APP_URL}/api-items/get-items/${newPage + 1}/${api.rowsPerPage}`));
+		dispatch(fetchData(`${APP_URL}/api-items/get-items/${newPage + 1}/${api.rowsPerPage}`, 'api'));
 	};
 
 	const handleChangeRowsPerPage = (event) => {
@@ -34,23 +37,29 @@ const ItemsList = () => {
 		let pp = (api.total % numRows) + remain;
 
 		dispatch(
-			setApi({
-				page: api.page != 1 ? (pp != api.page ? api.page - 1 : api.page) : api.page,
-				rowsPerPage: numRows,
-			})
+			setApi(
+				{
+					page: api.page != 1 ? (pp != api.page ? api.page - 1 : api.page) : api.page,
+					rowsPerPage: numRows,
+				},
+				'api'
+			)
 		);
 
 		dispatch(
 			fetchData(
 				`${APP_URL}/api-items/get-items/${
 					api.page != 1 ? (pp != api.page ? api.page - 1 : api.page) : api.page
-				}/${numRows}`
+				}/${numRows}`,
+				'api'
 			)
 		);
 	};
 
 	return (
 		<PPETable
+			tool={false}
+			toolbox={null}
 			loading={loading}
 			datas={api.data || []}
 			rowsPerPage={api.rowsPerPage}

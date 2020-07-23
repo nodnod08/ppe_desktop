@@ -58,10 +58,11 @@ export const setAlert = (alert) => (dispatch) => {
 	});
 };
 
-export const setApi = (config) => (dispatch) => {
+export const setApi = (config, location) => (dispatch) => {
 	dispatch({
 		type: 'SET_API',
 		data: config,
+		location,
 	});
 };
 
@@ -80,15 +81,18 @@ export const refresh_user_token = () => (dispatch) => {
 	}
 };
 
-export const fetchData = (url) => (dispatch) => {
+export const fetchData = (url, location) => (dispatch) => {
 	axios
 		.get(url)
 		.then((res) => {
 			dispatch(
-				setApi({
-					total: res.data.total,
-					data: res.data.data,
-				})
+				setApi(
+					{
+						total: res.data.total,
+						data: res.data.data,
+					},
+					location
+				)
 			);
 		})
 		.then(() => {
@@ -96,7 +100,7 @@ export const fetchData = (url) => (dispatch) => {
 		});
 };
 
-export const deleteItem = (url, url2, data, api) => (dispatch) => {
+export const deleteItem = (url, url2, data, api, location) => (dispatch) => {
 	dispatch(setLoading(true));
 	axios
 		.post(url, {
@@ -110,16 +114,19 @@ export const deleteItem = (url, url2, data, api) => (dispatch) => {
 				.get(url2)
 				.then((res) => {
 					dispatch(
-						setApi({
-							page:
-								api.total % api.rowsPerPage == 1
-									? api.page > 1
-										? api.page - 1
-										: api.page
-									: api.page,
-							total: res.data.total,
-							data: res.data.data,
-						})
+						setApi(
+							{
+								page:
+									api.total % api.rowsPerPage == 1
+										? api.page > 1
+											? api.page - 1
+											: api.page
+										: api.page,
+								total: res.data.total,
+								data: res.data.data,
+							},
+							location
+						)
 					);
 				})
 				.then(() => {

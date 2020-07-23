@@ -96,6 +96,8 @@ const PPETable = ({
 	page,
 	columns,
 	loading,
+	tool,
+	toolbox,
 }) => {
 	const classes = useStyles();
 	const { data } = useSelector((state) => state.main);
@@ -105,6 +107,7 @@ const PPETable = ({
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
 				<TableContainer>
+					{tool ? toolbox : null}
 					<Table
 						className={classes.table}
 						aria-labelledby="tableTitle"

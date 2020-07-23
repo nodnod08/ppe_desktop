@@ -4,7 +4,6 @@ import {
 	FormControl,
 	MenuItem,
 	TextField,
-	Container,
 	Grid,
 	Button,
 	Radio,
@@ -109,9 +108,9 @@ const InsertItems = ({ type, value }) => {
 				if (type != 'update' && api.total % api.rowsPerPage != 0) {
 					let new_data = [...api.data];
 					new_data.push(res.data.added);
-					dispatch(setApi({ data: new_data, total: api.total + 1 }));
+					dispatch(setApi({ data: new_data, total: api.total + 1 }, 'api'));
 				}
-				dispatch(fetchData(`${APP_URL}/api-items/get-items/${api.page}/${api.rowsPerPage}`));
+				dispatch(fetchData(`${APP_URL}/api-items/get-items/${api.page}/${api.rowsPerPage}`, 'api'));
 				if (type != 'update') {
 					dispatch(setAlert({ isShow: true, type: res.data.result, message: res.data.message }));
 				}
@@ -272,7 +271,7 @@ const InsertItems = ({ type, value }) => {
 				</FormControl>
 			</Grid>
 			<Grid item xs={12}>
-				<FormControl className={classes.root_formcontrol}>
+				<FormControl className={classes.ck}>
 					<CKEditor
 						data={content}
 						onChange={(evt) => {
@@ -307,8 +306,10 @@ const InsertItems = ({ type, value }) => {
 				)}
 			</Grid>
 			<Grid item xs={12}>
-				{(loading && type != 'update') ? <ProgressSending /> : null}
-				{(alert.isShow && type != 'update') ? <CustomAlert type={alert.type} message={alert.message} /> : null}
+				{loading && type != 'update' ? <ProgressSending /> : null}
+				{alert.isShow && type != 'update' ? (
+					<CustomAlert type={alert.type} message={alert.message} />
+				) : null}
 			</Grid>
 		</Paper>
 	);

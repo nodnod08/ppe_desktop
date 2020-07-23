@@ -24,7 +24,8 @@ const Action = ({ value }) => {
 					api.total % api.rowsPerPage == 1 ? (api.page > 1 ? api.page - 1 : api.page) : api.page
 				}/${api.rowsPerPage}`,
 				value,
-				api
+				api,
+				'api'
 			)
 		);
 	};
@@ -71,7 +72,7 @@ const columns = [
 	{
 		type: 'number',
 		id: 'number',
-		label: '#'
+		label: '#',
 	},
 	{
 		id: 'action',

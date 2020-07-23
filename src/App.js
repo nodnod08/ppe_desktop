@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Tooltip, Tab, Tabs, Paper, Typography, Box, IconButton } from '@material-ui/core';
+import { Tooltip, Tab, Tabs, Paper, Box, IconButton } from '@material-ui/core';
 import GroupIcon from '@material-ui/icons/Group';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
@@ -15,6 +15,7 @@ import { refresh_user_token } from './actions/actions';
 import Account from './components/account';
 import InsertItems from './components/ItemsManagement/InsertItems';
 import ItemLists from './components/ItemsManagement/ItemsList';
+import UserPage from './components/UsersManagement';
 
 const useStyles = makeStyles({
 	root: {
@@ -57,7 +58,7 @@ const App = ({ user }) => {
 		'General Settings',
 	]);
 	const [components, setComponents] = useState([
-		'Users Management',
+		<UserPage />,
 		<InsertItems type="create" />,
 		<ItemLists />,
 		'Charts View',
