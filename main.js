@@ -15,7 +15,6 @@ if (handleSquirrelEvent(app)) {
 function handleSquirrelEvent(application) {
 	if (process.argv.length === 1) {
 		return false;
-		s;
 	}
 
 	const ChildProcess = require('child_process');
@@ -79,7 +78,12 @@ function handleSquirrelEvent(application) {
 
 let mainWindow;
 function createWindow() {
-	mainWindow = new BrowserWindow({ width: 1200, height: 680 });
+	mainWindow = new BrowserWindow({
+		width: 1200,
+		height: 680,
+		icon: __dirname + '/public/logo_old.png',
+		zoomFactor: -1,
+	});
 	//fixed this for production
 	// mainWindow.loadURL(`file://${path.join(__dirname, "./build/index.html")}`);
 	mainWindow.loadURL(
