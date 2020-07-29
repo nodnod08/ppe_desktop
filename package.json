@@ -2,11 +2,14 @@
 	"description": "pro-prints-enterprise-desktop-app",
 	"author": "Dondomie Dungca",
 	"build": {
-		"appId": "181409"
+		"appId": "181409",
+		"productName": "proprintsenterprise",
+		"icon": "public/logo_old.ico"
 	},
 	"main": "./main.js",
 	"homepage": "./",
-	"name": "ppe_desktop",
+	"name": "proprintsenterprise",
+	"productName": "proprintsenterprise",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {

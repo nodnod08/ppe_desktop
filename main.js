@@ -3,9 +3,9 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
-const isDev = require('electron-is-dev');
+// const isDev = require('electron-is-dev');
 
-const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+// const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
 if (handleSquirrelEvent(app)) {
 	// squirrel event handled and app will exit in 1000ms, so don't do anything else
@@ -85,20 +85,21 @@ function createWindow() {
 		zoomFactor: -1,
 	});
 	//fixed this for production
-	// mainWindow.loadURL(`file://${path.join(__dirname, "./build/index.html")}`);
-	mainWindow.loadURL(
-		isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, './public/index.html')}`
-	);
+	mainWindow.loadURL(`file://${path.join(__dirname, './build/index.html')}`);
+	// mainWindow.loadURL(
+	// 	isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, './public/index.html')}`
+	// );
 	mainWindow.on('closed', () => (mainWindow = null));
 }
 
 app.on('ready', createWindow);
 
-app.whenReady().then(() => {
-	installExtension(REDUX_DEVTOOLS)
-		.then((name) => console.log(`Added Extension:  ${name}`))
-		.catch((err) => console.log('An error occurred: ', err));
-});
+// remove this when production
+// app.whenReady().then(() => {
+// 	installExtension(REDUX_DEVTOOLS)
+// 		.then((name) => console.log(`Added Extension:  ${name}`))
+// 		.catch((err) => console.log('An error occurred: ', err));
+// });
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {

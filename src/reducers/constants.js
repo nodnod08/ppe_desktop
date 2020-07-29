@@ -1,6 +1,6 @@
 export const INIT_DATA = {
 	data: {
-		APP_URL: 'http://localhost:5000',
+		APP_URL: 'https://proprints.herokuapp.com/',
 		loading: false,
 		alert: {
 			message: '',
